@@ -1,0 +1,23 @@
+{
+    "name": "joshdifabio/magento1-module-loader",
+    "description": "Load Magento 1 modules using Composer without copying anything into app/code.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Josh Di Fabio",
+            "email": "joshdifabio@gmail.com"
+        }
+    ],
+    "require": {
+        "joshdifabio/magento1-composer-bridge": "~1.0"
+    },
+    "autoload": {
+        "classmap": [ "PathResolver.php" ],
+        "files": [ "bootstrap.php" ]
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    }
+}
