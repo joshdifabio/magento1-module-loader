@@ -48,7 +48,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config__vanilla
     protected function _getDeclaredModuleFiles()
     {
         $filesInAppEtcModules = parent::_getDeclaredModuleFiles() ?: array();
-        $filePaths = array_merge($filesInAppEtcModules, PathResolver::getModuleFilePaths());
+        $filePaths = array_merge($filesInAppEtcModules, PathResolver::getPathsToModuleFiles());
         
         return $filePaths ?: false;
     }
