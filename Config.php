@@ -47,10 +47,38 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config__vanilla
      */
     protected function _getDeclaredModuleFiles()
     {
-        $filesInAppEtcModules = parent::_getDeclaredModuleFiles() ?: array();
-        $filePaths = array_merge($filesInAppEtcModules, PathResolver::getPathsToModuleFiles());
-        
-        return $filePaths ?: false;
+        $etcDir = $this->getOptions()->getEtcDir();
+        $moduleFiles = glob($etcDir . DS . 'modules' . DS . '*.xml');
+        $moduleFiles = array_merge($moduleFiles, PathResolver::getPathsToModuleFiles());
+
+        if (!$moduleFiles) {
+            return false;
+        }
+
+        $collectModuleFiles = array(
+            'base'   => array(),
+            'mage'   => array(),
+            'custom' => array()
+        );
+
+        foreach ($moduleFiles as $v) {
+            $name = explode(DIRECTORY_SEPARATOR, $v);
+            $name = substr($name[count($name) - 1], 0, -4);
+
+            if ($name == 'Mage_All') {
+                $collectModuleFiles['base'][] = $v;
+            } else if (substr($name, 0, 5) == 'Mage_') {
+                $collectModuleFiles['mage'][] = $v;
+            } else {
+                $collectModuleFiles['custom'][] = $v;
+            }
+        }
+
+        return array_merge(
+            $collectModuleFiles['base'],
+            $collectModuleFiles['mage'],
+            $collectModuleFiles['custom']
+        );
     }
     
     /**
