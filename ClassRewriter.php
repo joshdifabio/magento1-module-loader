@@ -3,6 +3,8 @@ namespace MagentoModuleLoader;
 
 class ClassRewriter
 {
+    private $composerAutoloader;
+    
     /**
      * @param string $className
      * @param string $renameTo
@@ -10,7 +12,7 @@ class ClassRewriter
      */
     public static function loadClassAs($className, $renameTo)
     {
-        if (!$file = $this->getComposerAutoloader()->findFile($className)) {
+        if (!$file = self::getComposerAutoloader()->findFile($className)) {
             throw new \RuntimeException("Failed to find $className.");
         }
         
@@ -28,10 +30,10 @@ class ClassRewriter
      */
     private static function getComposerAutoloader()
     {
-        if (!$this->composerAutoloader) {
-            $this->composerAutoloader = require __DIR__ . '/vendor-autoload.php';
+        if (!self::$composerAutoloader) {
+            self::$composerAutoloader = require __DIR__ . '/vendor-autoload.php';
         }
         
-        return $this->composerAutoloader;
+        return self::$composerAutoloader;
     }
 }

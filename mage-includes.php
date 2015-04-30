@@ -17,3 +17,5 @@ set_include_path(implode(PATH_SEPARATOR, $paths));
 
 require_once 'Mage/Core/functions.php';
 require_once 'Varien/Autoload.php';
+
+Varien_Autoload::register();
