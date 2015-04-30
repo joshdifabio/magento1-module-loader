@@ -12,7 +12,9 @@
         "joshdifabio/magento1-composer-bridge": "~1.0"
     },
     "autoload": {
-        "classmap": [ "PathResolver.php" ],
+        "psr-4": {
+            "MagentoModuleLoader\\": ""
+        },
         "files": [ "bootstrap.php" ]
     },
     "extra": {
