@@ -1,7 +1,7 @@
 <?php
 namespace MagentoModuleLoader;
 
-if (!class_exists('Mage.php', false)) {
+if (!class_exists('Mage', false)) {
     require __DIR__ . '/mage-includes.php';
 }
 
